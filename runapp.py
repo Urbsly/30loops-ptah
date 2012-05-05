@@ -1,2 +1,3 @@
-from paste.deploy import loadapp
-app = loadapp('config:settings.ini', relative_to='.')
+import os.path
+from pyramid.paster import get_app
+app = get_app(os.path.join(os.path.dirname(__file__), 'settings.ini'))
