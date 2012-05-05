@@ -18,7 +18,6 @@ simplejson==2.5.0
 transaction==1.2.0
 translationstring==1.1
 venusian==1.0a6
-waitress==0.8.1
 wsgiref==0.1.2
 zope.deprecation==3.5.1
 zope.interface==3.8.0
