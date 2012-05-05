@@ -1,45 +1,29 @@
-To deploy this app on Heroku, do the following:
-
-Install Heroku Toolbelt: https://toolbelt.herokuapp.com/
+To deploy this app on 30Loops, do the following (assuming you already
+have an account with 30Loops, and have set up your thirty.cfg file (:
 
 $ mkdir newapp
 $ cd newapp
 $ virtualenv venv --distribute --no-site-packages
 $ source venv/bin/activate
-$ git clone git://github.com/Urbsly/heroku-ptah.git
-$ cd heroku-ptah
-$ heroku create --stack cedar
-$ heroku addons:add shared-database
-$ git push heroku master
-$ heroku ps:scale web=1
-$ heroku open
+$ pip install thirty-cli
+$ thirty create app ptahapp git://github.com/Urbsly/30loops-ptah.git --flavor wsgi --root urbsly --wsgi-entrypoint runapp:app
+$ thirty deploy ptahapp
 
-Ideally, you would have forked the repository first, and so checked out a
-writable clone in step five instead of a read-only copy.
+Ideally, you would have forked the repository first, and so used your
+fork in step six instead.
 
-To run this code locally, do the following in newapp/heroku-ptah:
+To run this code locally, do the following:
 
+$ git clone git://github.com/Urbsly/30loops-ptah.git
+$ cd 30Loops-ptah
 $ pip install -r localrequirements.txt
 $ python setup.py develop
 $ ../venv/bin/pserve settings.ini --reload
 
 Changes made to this skeleton from the default ptah_starter:
 
-1. Procfile added to tell Heroku what to run upon deployment to start the web
-   service.
+1. runapp.py added to provide the WSGI entrypoint
 
-2. A 'run' bash script that causes Heroku to develop then run the app.
-
-3. runapp.py that actually runs the app using waitress.
-
-4. requirements.txt informs Heroku what the dependencies are. Dependencies
-   added from the stock ptah_starter are waitress and psycopg2. These haven't
+2. requirements.txt informs 30Loops what the dependencies are. Dependencies
+   added from the stock ptah_starter are psycopg2. These haven't
    been added to localrequirements.txt.
-
-5. Heroku doesn't support SQLite, so a small change was required to get Ptah
-   to use the shared postgres db that Heroku provisions. Heroku exposes the DB
-   connection string as the environment variable DATABASE_URL (if the database
-   is a shared database, it is also available as SHARED_DATABASE_URL). app.py
-   has been modified to use this environment variable (if present) to override
-   the sqlalchemy.url parameter from settings.ini before the settings are
-   applied.
