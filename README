@@ -18,7 +18,7 @@ fork in step six instead.
 To run this code locally, do the following:
 
 $ git clone git://github.com/Urbsly/30loops-ptah.git
-$ cd 30Loops-ptah
+$ cd 30loops-ptah
 $ pip install -r localrequirements.txt
 $ python setup.py develop
 $ ../venv/bin/pserve settings.ini --reload
