@@ -1,5 +1,8 @@
+30Loops documentation:
+http://30loops.net/docs/user-documentation/
+
 To deploy this app on 30Loops, do the following (assuming you already
-have an account with 30Loops, and have set up your thirty.cfg file (:
+have an account with 30Loops, and have set up your .thirty.cfg file):
 
 $ mkdir newapp
 $ cd newapp
