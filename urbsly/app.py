@@ -13,13 +13,19 @@ session_factory = UnencryptedCookieSessionFactoryConfig('secret')
 def main(global_config, **settings):
     """ Function which returns a configured Pyramid/Ptah WSIG Application """
 
+    # Construct a db connection URL from 30Loops environment variables
+    # pattern is postgresql+psycopg2://scott:tiger@localhost/mydatabase
+    db_user = os.environ.get("DB_USER")
+    db_name = os.environ.get("DB_NAME")
+    db_host = os.environ.get("DB_HOST")
+    db_pass = os.environ.get("DB_PASSWORD")
+    db_url = "postgresql+psycopg2://"+db_user+":"+db_pass+"@"+db_host+"/"+dbname
+
+    # Override the SQLAlchemy url from settings.ini
+    if db_host:
+        settings['sqlalchemy.url']=dburl
+
     # Info: This is how Pyramid is configured.
-
-    # Originally for Heroku, needs to be modified for 30Loops
-    #durl = os.environ.get("DATABASE_URL")
-    #if durl:
-    #    settings['sqlalchemy.url']=durl
-
     config = Configurator(settings=settings,
                           session_factory = session_factory,
                           authentication_policy = auth_policy)
