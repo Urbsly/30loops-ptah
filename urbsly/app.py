@@ -17,13 +17,13 @@ def main(global_config, **settings):
     # pattern is postgresql+psycopg2://scott:tiger@localhost/mydatabase
     env = None
     try:
-        with open('/app/conf/environment.json') as f:
-            env = json.load(f)
-    db_user = env["DB_USER"]
-    db_name = env["DB_NAME"]
-    db_host = env["DB_HOST"]
-    db_pass = env["DB_PASSWORD"]
-    db_url = "postgresql+psycopg2://"+db_user+":"+db_pass+"@"+db_host+"/"+dbname
+        f = open('/app/conf/environment.json')
+        env = json.load(f)
+        db_user = env["DB_USER"]
+        db_name = env["DB_NAME"]
+        db_host = env["DB_HOST"]
+        db_pass = env["DB_PASSWORD"]
+        db_url = "postgresql+psycopg2://"+db_user+":"+db_pass+"@"+db_host+"/"+dbname
 
     # Override the SQLAlchemy url from settings.ini
     if env:
