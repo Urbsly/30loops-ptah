@@ -1,4 +1,4 @@
-import os
+import json
 
 import ptah
 from pyramid.config import Configurator
@@ -15,14 +15,18 @@ def main(global_config, **settings):
 
     # Construct a db connection URL from 30Loops environment variables
     # pattern is postgresql+psycopg2://scott:tiger@localhost/mydatabase
-    db_user = os.environ.get("DB_USER")
-    db_name = os.environ.get("DB_NAME")
-    db_host = os.environ.get("DB_HOST")
-    db_pass = os.environ.get("DB_PASSWORD")
+    env = None
+    try:
+        with open('/app/conf/environment.json') as f:
+            env = json.load(f)
+    db_user = env["DB_USER"]
+    db_name = env["DB_NAME"]
+    db_host = env["DB_HOST"]
+    db_pass = env["DB_PASSWORD"]
     db_url = "postgresql+psycopg2://"+db_user+":"+db_pass+"@"+db_host+"/"+dbname
 
     # Override the SQLAlchemy url from settings.ini
-    if db_host:
+    if env:
         settings['sqlalchemy.url']=dburl
 
     # Info: This is how Pyramid is configured.
