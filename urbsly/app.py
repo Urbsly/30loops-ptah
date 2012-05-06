@@ -27,7 +27,7 @@ def main(global_config, **settings):
 
     # Override the SQLAlchemy url from settings.ini
     if env:
-        settings['sqlalchemy.url']=dburl
+        settings['sqlalchemy.url']=db_url
 
     # Info: This is how Pyramid is configured.
     config = Configurator(settings=settings,
