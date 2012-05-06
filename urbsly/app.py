@@ -24,10 +24,10 @@ def main(global_config, **settings):
         db_host = env["DB_HOST"]
         db_pass = env["DB_PASSWORD"]
         db_url = "postgresql+psycopg2://"+db_user+":"+db_pass+"@"+db_host+"/"+dbname
-
-    # Override the SQLAlchemy url from settings.ini
-    if env:
+        # Override the SQLAlchemy url from settings.ini
         settings['sqlalchemy.url']=db_url
+    except:
+        pass
 
     # Info: This is how Pyramid is configured.
     config = Configurator(settings=settings,
